@@ -1,5 +1,5 @@
 {
-  "header": ["No", "Name", "Price", "Stock", "Category", "Option"],
+  "headers": ["No", "Name", "Price", "Stock", "Category", "Option"],
   "rows": [
     {
       "id": "1",

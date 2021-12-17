@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Row, Col, Table } from "reactstrap";
 import Modal from "../../component/Modal";
-import jsonData from "../../db/product.json";
+import jsonData from "../../db/products.json";
 import FormCreate from "./createData";
 import FormEdit from "./editData";
 
