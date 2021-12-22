@@ -8,6 +8,12 @@ import FormEdit from "./editData";
 const Dashboard = () => {
   const [data, setData] = useState({ headers: [], rows: [] });
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const handleDelete = (id) => {
+    const updateRows = data.rows.filter((v) => id !== v.id);
+    setData((prev) => ({ ...prev, rows: updateRows }));
+  };
+
   useEffect(() => {
     setData(jsonData);
   }, []);
@@ -39,7 +45,11 @@ const Dashboard = () => {
               <td>{row.stock}</td>
               <td>{row.category}</td>
               <td>{/* <Button onClick={}>Edit</Button> */}</td>
-              <td>{/* <Button onClick={}>Delete</Button> */}</td>
+              <td>
+                <Button color="danger" onClick={() => handleDelete(row.id)}>
+                  Delete
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
