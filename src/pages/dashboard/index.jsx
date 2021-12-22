@@ -7,6 +7,7 @@ import FormEdit from "./editData";
 
 const Dashboard = () => {
   const [data, setData] = useState({ headers: [], rows: [] });
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   useEffect(() => {
     setData(jsonData);
   }, []);
@@ -16,6 +17,11 @@ const Dashboard = () => {
     <>
       <h1>CRUD Data</h1>
       <br />
+      <Button color="primary" onClick={() => setIsCreateModalOpen(true)}>
+        Add Data +
+      </Button>
+      <br />
+      <br />
       <Table>
         <thead>
           <tr>
@@ -24,7 +30,22 @@ const Dashboard = () => {
             ))}
           </tr>
         </thead>
+        <tbody>
+          {data.rows.map((row, idx) => (
+            <tr key={idx}>
+              <th scope="row">{idx + 1}</th>
+              <td>{row.name}</td>
+              <td>{row.price}</td>
+              <td>{row.stock}</td>
+              <td>{row.category}</td>
+              <td>{/* <Button onClick={}>Edit</Button> */}</td>
+              <td>{/* <Button onClick={}>Delete</Button> */}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
+      {/* Ambil data Modal */}
+      <Modal title={`Add Data`} isOpen={isCreateModalOpen} setOpen={setIsCreateModalOpen} children={<FormCreate data={data.rows} setData={setData} setOpen={setIsCreateModalOpen} />} />
     </>
   );
 };
