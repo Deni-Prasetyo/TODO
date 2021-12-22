@@ -8,10 +8,17 @@ import FormEdit from "./editData";
 const Dashboard = () => {
   const [data, setData] = useState({ headers: [], rows: [] });
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editedDataId, setEditedDataId] = useState({});
 
   const handleDelete = (id) => {
     const updateRows = data.rows.filter((v) => id !== v.id);
     setData((prev) => ({ ...prev, rows: updateRows }));
+  };
+
+  const handleEdit = (id) => {
+    setEditedDataId(id);
+    setIsEditModalOpen(true);
   };
 
   useEffect(() => {
@@ -44,7 +51,9 @@ const Dashboard = () => {
               <td>{row.price}</td>
               <td>{row.stock}</td>
               <td>{row.category}</td>
-              <td>{/* <Button onClick={}>Edit</Button> */}</td>
+              <td>
+                <Button onClick={() => handleEdit(row.id)}>Edit</Button>
+              </td>
               <td>
                 <Button color="danger" onClick={() => handleDelete(row.id)}>
                   Delete
@@ -56,6 +65,8 @@ const Dashboard = () => {
       </Table>
       {/* Ambil data Modal */}
       <Modal title={`Add Data`} isOpen={isCreateModalOpen} setOpen={setIsCreateModalOpen} children={<FormCreate data={data.rows} setData={setData} setOpen={setIsCreateModalOpen} />} />
+      {/* Edit data Modal */}
+      <Modal title={`Edit Data`} isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} children={<FormEdit data={data.rows} setData={setData} setOpen={setIsEditModalOpen} editedDataId={editedDataId} />} />
     </>
   );
 };
