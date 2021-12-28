@@ -20,6 +20,8 @@ const Register = () => {
     initialValues: {
       email: "",
       username: "",
+      address: "",
+      phone_number: "",
       password: "",
       retypePassword: "",
     },
