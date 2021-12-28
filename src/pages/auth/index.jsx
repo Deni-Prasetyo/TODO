@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Card, Row, Col } from "reactstrap";
+import { Row, Col } from "reactstrap";
 import Login from "./login";
 import Signup from "./register";
 
@@ -21,20 +21,20 @@ const AuthPages = () => {
           <div className="card-auth-page">
             <div className={`card-inner`}>
               {currentContainer ? (
-                <div className={`card-register`}>
+                <div className={`card-register `}>
                   <h3>Sign up</h3>
-                  <Signup />
-                  <a href="!#" onClick={() => setCurrentContainer(false)}>
-                    Already Have Account
-                  </a>
+                  <Signup setCurrentContainer={setCurrentContainer} />
+                  <button className="btn-chang-container" onClick={() => setCurrentContainer(false)}>
+                    Sudah punya Akun?
+                  </button>
                 </div>
               ) : (
                 <div className={`card-login`}>
                   <h3>Login</h3>
-                  <Login />{" "}
-                  <a href="!#" onClick={() => setCurrentContainer(true)}>
-                    Create Account
-                  </a>
+                  <Login />
+                  <button className="btn-chang-container" onClick={() => setCurrentContainer(true)}>
+                    Daftar
+                  </button>
                 </div>
               )}
             </div>

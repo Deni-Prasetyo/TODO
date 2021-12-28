@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email().required("Email Salah"),
+  email: yup.string().email().required(),
   password: yup.string().min(8).required(),
 });
 
@@ -23,17 +23,16 @@ const Login = () => {
     onSubmit: () => handleLogin(),
   });
 
-  console.log(formik.values, formik.errors, formik.touched);
   return (
     <Container className="container-login">
       <form onSubmit={formik.handleSubmit}>
-        {Object.keys(formik.initialValues).map((key, index) => {
+        {Object.keys(formik.initialValues).map((key, index) => (
           <div key={index} className="row-input">
-            <Input Id={key} name={key} placeholder={key} value={formik.values[key]} onChange={formik.handleChange} invalid={formik.touched[key] && Boolean(formik.errors[key])} />
+            <Input type={key === "password" ? "password" : "text"} Id={key} name={key} placeholder={key} value={formik.values[key]} onChange={formik.handleChange} invalid={formik.touched[key] && Boolean(formik.errors[key])} />
 
             {formik.touched[key] && Boolean(formik.errors[key]) && <FormFeedback className="error-feedback">{formik.errors[key]}</FormFeedback>}
-          </div>;
-        })}
+          </div>
+        ))}
         <Button className="btn-submit" type="submit">
           Login
         </Button>

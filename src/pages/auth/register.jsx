@@ -4,13 +4,15 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email().required("Email Salah"),
+  email: yup.string().email().required(),
+  username: yup.string().required(),
   password: yup.string().min(8).required(),
+  retypePassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
 const Register = () => {
-  const handleLogin = async (e) => {
-    alert("oke"); //consume API
+  const handleRegister = async (e) => {
+    alert("oke");
     console.log(e);
   };
 
@@ -22,20 +24,19 @@ const Register = () => {
       retypePassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: () => handleLogin(),
+    onSubmit: () => handleRegister(),
   });
 
-  console.log(formik.initialValues);
   return (
     <Container className="container-register">
       <form onSubmit={formik.handleSubmit}>
-        {Object.keys(formik.initialValues).map((key, index) => {
+        {Object.keys(formik.initialValues).map((key, index) => (
           <div key={index} className="row-input">
             <Input Id={key} name={key} placeholder={key} value={formik.values[key]} onChange={formik.handleChange} invalid={formik.touched[key] && Boolean(formik.errors[key])} />
 
             {formik.touched[key] && Boolean(formik.errors[key]) && <FormFeedback className="error-feedback">{formik.errors[key]}</FormFeedback>}
-          </div>;
-        })}
+          </div>
+        ))}
         <Button className="btn-submit" type="submit">
           Register
         </Button>
