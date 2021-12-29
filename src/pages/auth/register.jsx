@@ -10,10 +10,11 @@ const validationSchema = yup.object().shape({
   retypePassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
-const Register = () => {
+const Register = ({ setCurrentContainer }) => {
   const handleRegister = async (e) => {
-    alert("oke");
-    console.log(e);
+    const { email, password, username } = formik.values;
+    let { data } = await axios.post(`http://localhost:3002/data`, { email, password, username });
+    setCurrentContainer(true);
   };
 
   const formik = useFormik({

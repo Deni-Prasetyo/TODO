@@ -1,0 +1,42 @@
+{
+  "data": {
+    "headers": ["No", "Name", "Price", "Stock", "Category", "Option"],
+    "rows": [
+      {
+        "id": "1",
+        "name": "Silturn Water",
+        "price": 1100,
+        "stock": 100,
+        "category": "Consumables"
+      },
+      {
+        "id": "2",
+        "name": "Wheatgrass Juice",
+        "price": 1200,
+        "stock": 100,
+        "category": "Consumables"
+      },
+      {
+        "id": "3",
+        "name": "Banana Smoothie",
+        "price": 1300,
+        "stock": 100,
+        "category": "Consumables"
+      },
+      {
+        "id": "4",
+        "name": "Tomato Juice",
+        "price": 1400,
+        "stock": 100,
+        "category": "Consumables"
+      },
+      {
+        "id": "5",
+        "name": "Kicker Potion",
+        "price": 1500,
+        "stock": 100,
+        "category": "Consumables"
+      }
+    ]
+  }
+}

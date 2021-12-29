@@ -2,6 +2,7 @@ import { React } from "react";
 import { Button, Container, FormFeedback, Input } from "reactstrap";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import axios from "axios";
 
 const validationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -10,8 +11,13 @@ const validationSchema = yup.object().shape({
 
 const Login = () => {
   const handleLogin = async (e) => {
-    alert("oke");
-    console.log(e);
+    const { email, password } = formik.values;
+    let { data } = await axios.get(`http://localhost:3002/data`);
+    let user = data.filter((v) => v.email === email && v.password === password);
+    if (user.length > 0) {
+      sessionStorage.setItem("logged", true);
+      window.location = "/main";
+    }
   };
 
   const formik = useFormik({

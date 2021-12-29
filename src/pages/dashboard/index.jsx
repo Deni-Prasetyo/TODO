@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import { Button, Row, Col, Table } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Table } from "reactstrap";
 import Modal from "../../component/Modal";
-import jsonData from "../../db/products.json";
+// import jsonData from "../../db/products.json";
 import FormCreate from "./createData";
 import FormEdit from "./editData";
+import axios from "axios";
 
 const Dashboard = () => {
   const [data, setData] = useState({ headers: [], rows: [] });
@@ -11,9 +12,16 @@ const Dashboard = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedDataId, setEditedDataId] = useState({});
 
-  const handleDelete = (id) => {
-    const updateRows = data.rows.filter((v) => id !== v.id);
-    setData((prev) => ({ ...prev, rows: updateRows }));
+  const handleDelete = async (id) => {
+    try {
+      let newData = data;
+      const updateRows = data.rows.filter((v) => id !== v.id);
+      newData.rows = updateRows;
+      await axios.post(`http://localhost:3001/data`, data);
+      setData((prev) => ({ ...prev, rows: updateRows }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleEdit = (id) => {
@@ -21,11 +29,20 @@ const Dashboard = () => {
     setIsEditModalOpen(true);
   };
 
+  //async
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(`https://localhost:3001/data`);
+      setData(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    setData(jsonData);
+    getData();
   }, []);
 
-  console.log(data);
   return (
     <>
       <h1>CRUD Data</h1>
@@ -64,9 +81,9 @@ const Dashboard = () => {
         </tbody>
       </Table>
       {/* Ambil data Modal */}
-      <Modal title={`Add Data`} isOpen={isCreateModalOpen} setOpen={setIsCreateModalOpen} children={<FormCreate data={data.rows} setData={setData} setOpen={setIsCreateModalOpen} />} />
+      <Modal title={`Add Data`} isOpen={isCreateModalOpen} setOpen={setIsCreateModalOpen} children={<FormCreate data={data} setData={setData} setOpen={setIsCreateModalOpen} />} />
       {/* Edit data Modal */}
-      <Modal title={`Edit Data`} isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} children={<FormEdit data={data.rows} setData={setData} setOpen={setIsEditModalOpen} editedDataId={editedDataId} />} />
+      <Modal title={`Edit Data`} isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} children={<FormEdit data={data} setData={setData} setOpen={setIsEditModalOpen} editedDataId={editedDataId} />} />
     </>
   );
 };
