@@ -1,12 +1,11 @@
-import AuthPages from "./pages/auth";
-import Dashboard from "./pages/dashboard";
+import React, { Fragment } from "react";
+import Header from "./components/Layout/Header";
 
 function App() {
   return (
-    <div className="App">
-      {/* <Dashboard /> */}
-      <AuthPages />
-    </div>
+    <Fragment>
+      <Header />
+    </Fragment>
   );
 }
 
